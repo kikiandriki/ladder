@@ -11,6 +11,9 @@ import { auth } from "@middlewares/auth"
 import { error } from "@middlewares/error"
 import { member } from "@middlewares/member"
 
+// Route imports.
+import { messages } from "@routes/messages"
+
 // Initialize the app.
 export const app = express()
 
@@ -28,9 +31,7 @@ app.use(auth)
 app.use(member)
 
 // Use routes.
-app.get("/", async (_req, res) => {
-  res.status(200).send({ message: "Hello, world!" })
-})
+app.use("/messages", messages)
 
 // Use the error middleware.
 app.use(error)
