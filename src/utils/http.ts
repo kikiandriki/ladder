@@ -6,7 +6,7 @@
 import axiosBase from "axios"
 
 // Server ID constant.
-const SERVER_ID = process.env.SERVER_ID || "604373743837511691"
+const SERVER_ID = process.env.SERVER_ID || "558027628502712330"
 
 // Axios base object.
 export const discord = axiosBase.create({
