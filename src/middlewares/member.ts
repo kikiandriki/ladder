@@ -34,6 +34,10 @@ export const member = async (
   _res: Response,
   next: NextFunction,
 ) => {
+  // Skip if the user is a system user.
+  const system = req.actor.system
+  if (system) return next()
+  // Check if the user is a member of the server.
   const userId = req.actor.id
   const user = await checkMember(userId)
   if (!user) {
