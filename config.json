@@ -1,6 +1,5 @@
 {
   "cdkStackName": "Ladder",
   "authExpectedIssuer": "https://kikiandriki.us.auth0.com/",
-  "authExpectedAudience": "kikiandriki",
-  "authExpectedAPIScope": "ladder"
+  "authExpectedAudience": "kikiandriki"
 }

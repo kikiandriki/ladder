@@ -81,12 +81,6 @@ async function checkAuth({ headers }: CheckAuthInput) {
   }
   const token = header.substring(7)
   const payload = await verifySignature(token)
-  if (
-    config.authExpectedAPIScope &&
-    !payload.scope.split(" ").includes(config.authExpectedAPIScope)
-  ) {
-    throw new UnauthorizedError("You are not permitted to access this API.")
-  }
   const actorId = payload.sub.endsWith("@clients")
     ? payload.sub.split("@")[0]
     : payload.sub.split("|")[2]
