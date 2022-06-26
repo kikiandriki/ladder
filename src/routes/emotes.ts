@@ -45,12 +45,21 @@ emotes.get("/:userId", async (req, res) => {
     9,
     "WITHSCORES",
   )
-  const results: { emoteId: string; count: number }[] = []
+  const results: { emoteId: string; count: number; animated?: boolean }[] = []
   for (let i = 1; i < rankings.length; i += 2) {
-    results.push({
-      emoteId: rankings[i - 1],
-      count: parseInt(rankings[i]),
-    })
+    if (rankings[i - 1].split(":").length >= 2) {
+      const [type, emoteId] = rankings[i - 1].split(":")
+      results.push({
+        emoteId,
+        count: parseInt(rankings[i]),
+        animated: type === "a",
+      })
+    } else {
+      results.push({
+        emoteId: rankings[i - 1],
+        count: parseInt(rankings[i]),
+      })
+    }
   }
   // Return the data.
   return res.status(200).send(results)
