@@ -25,7 +25,8 @@ emotes.post("/:userId", perms("write:ladder"), async (req, res) => {
   const emotes = req.body
   // Write data to database.
   for (const emote of emotes) {
-    await redis.zincrby(`emotes:${userId}`, 1, emote)
+    await redis.zincrby(`users:${userId}:emotes`, 1, emote)
+    await redis.zincrby(`emotes:${emote}:users`, 1, userId)
   }
   // Return a successful response.
   return res.status(204).send()
@@ -39,7 +40,7 @@ emotes.get("/:userId", async (req, res) => {
   const userId = req.params.userId
   // Retrieve data from database.
   const rankings = await redis.zrevrange(
-    `emotes:${userId}`,
+    `users:${userId}:emotes`,
     0,
     -1,
     "WITHSCORES",
