@@ -42,7 +42,7 @@ emotes.get("/:userId", async (req, res) => {
   const rankings = await redis.zrevrange(
     `users:${userId}:emotes`,
     0,
-    -1,
+    9,
     "WITHSCORES",
   )
   const results: { emoteId: string; count: number }[] = []
